@@ -3,6 +3,8 @@ package com;
 public class Demo {
 
 	public static void main(String[] args) {
-		System.out.println("where are you ?");
+		int i=521;
+		System.out.println("where are you ?"+i);
+		
 	}
 }
