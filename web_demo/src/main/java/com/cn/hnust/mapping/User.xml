@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hnust.dao.UserDao">
+    <cache eviction="LRU" flushInterval="100000" readOnly="true" size="1024" />
+    <!-- 查询所有的模块表 -->
+    <select id="getModules" resultType="com.cn.hnust.pojo.User" flushCache="false" useCache="true">
+        SELECT * from module
+    </select>
+    <!-- 查询所有用户信息 -->
+    <select id="getUserInfo" resultType="com.cn.hnust.pojo.User" flushCache="true" useCache="false">
+        SELECT * from user 
+    </select>
+    <!-- 添加用户 -->
+    <insert id="insert_User_table" flushCache="true">
+        INSERT into `user`(user_name,user_password,user_email,user_phone,user_role) VALUES(
+        <if test="account!=null">
+            #{user_name},
+        </if>
+        <if test="account==null">
+            " ",
+        </if>
+        <if test="pwd!=null">
+            #{user_password},
+        </if>
+        <if test="pwd==null">
+            " ",
+        </if>
+        <if test="user_email!=null">
+            #{user_email},
+        </if>
+        <if test="user_email==null">
+            " ",
+        </if>
+        <if test="user_phone!=null">
+            #{user_phone},
+        </if>
+        <if test="user_phone==null">
+            " ",
+        </if>
+        <if test="user_role!=null">
+            #{user_role}
+        </if>
+        <if test="user_role==null">
+            "0"
+        </if>
+        )
+    </insert>
+    <!-- 添加权限 -->
+    <insert id="grantPermission" flushCache="true">
+        insert into permission(user_id,module_id) values(
+        <if test="user_id!=null">
+        #{user_id},
+        </if>
+        <if test="user_id==null">
+        "",
+        </if>
+        <if test="module_id!=null">
+        #{module_id}
+        </if>
+        <if test="module_id==null">
+        ""
+        </if>
+        )
+    </insert>
+    <!-- 根据用户id删除用户的权限 -->
+    <delete id="deletePerByUserId" flushCache="true">
+        delete from permission where user_id=#{user_id} and module_id=#{module_id}
+    </delete>
+    <!-- 根据用户名查找数据库 -->
+    <select id="queryUserByUserName" resultType="com.cn.hnust.pojo.User" flushCache="false" useCache="true">
+        select * from `user` u where u.user_name=#{user_name} 
+    </select>
+    <!-- 根据用户id查询用户没有的权限 -->
+    <select id="getUserPerByUserId" resultType="com.cn.hnust.pojo.User" flushCache="false" useCache="false">
+        SELECT * from module m where m.module_name not in 
+(select m.module_name from permission p,module m where m.module_id=p.module_id and p.user_id=#{user_id})
+    </select>
+    <!-- 根据用户id查询用户权限 -->
+    <select id="getUserPersByUserId" resultType="com.cn.hnust.pojo.User" flushCache="false" useCache="false">
+        SELECT * from module m where m.module_name in 
+(select m.module_name from permission p,module m where m.module_id=p.module_id and p.user_id=#{user_id})
+    </select>
+    <!-- 查看用户是否存在 -->
+    <select id="getCountByUserName" resultType="java.lang.Integer" flushCache="false" useCache="false">
+        select COUNT(u.user_name) from `user` u where u.user_name=#{user_name}
+    </select>
+    <!-- 修改用户密码 -->
+    <update id="updateUserPassword" flushCache="true">
+        update `user` t SET t.user_password=#{user_password} where t.user_name=#{user_name}
+    </update>
+    <!--删除用户 -->
+    <delete id="delete_User" flushCache="true">
+        delete from `user` where user_id=#{user_id}
+    </delete>
+    <!--删除用户权限 -->
+    <delete id="delete_permission" flushCache="true">
+        delete from `permission` where user_id=#{user_id}
+    </delete>
+</mapper>
