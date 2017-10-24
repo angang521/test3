@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<!--
+ | This is the configuration file for Maven. It can be specified at two levels:
+ |
+ |  1. User Level. This settings.xml file provides configuration for a single user,
+ |                 and is normally provided in ${user.home}/.m2/settings.xml.
+ |
+ |                 NOTE: This location can be overridden with the CLI option:
+ |
+ |                 -s /path/to/user/settings.xml
+ |
+ |  2. Global Level. This settings.xml file provides configuration for all Maven
+ |                 users on a machine (assuming they're all using the same Maven
+ |                 installation). It's normally provided in
+ |                 ${maven.home}/conf/settings.xml.
+ |
+ |                 NOTE: This location can be overridden with the CLI option:
+ |
+ |                 -gs /path/to/global/settings.xml
+ |
+ | The sections in this sample file are intended to give you a running start at
+ | getting the most out of your Maven installation. Where appropriate, the default
+ | values (values used when the setting is not specified) are provided.
+ |
+ |-->
+<settings xmlns="http://maven.apache.org/settings/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+  <!-- localRepository
+   | The path to the local repository maven will use to store artifacts.
+   |
+   | Default: ~/.m2/repository
+
+  <localRepository>D:/maven/respository</localRepository>
+   -->
+	<!-- <localRepository>D:/Program Files/maven/repository</localRepository> -->
+  <!-- interactiveMode
+   | This will determine whether maven prompts you when it needs input. If set to false,
+   | maven will use a sensible default value, perhaps based on some other setting, for
+   | the parameter in question.
+   |
+   | Default: true
+  <interactiveMode>true</interactiveMode>
+  -->
+
+  <!-- offline
+   | Determines whether maven should attempt to connect to the network when executing a build.
+   | This will have an effect on artifact downloads, artifact deployment, and others.
+   |
+   | Default: false
+  <offline>false</offline>
+  -->
+
+  <!-- pluginGroups
+   | This is a list of additional group identifiers that will be searched when resolving plugins by their prefix, i.e.
+   | when invoking a command line like "mvn prefix:goal". Maven will automatically add the group identifiers
+   | "org.apache.maven.plugins" and "org.codehaus.mojo" if these are not already contained in the list.
+   |-->
+  <pluginGroups>
+    <!-- pluginGroup
+     | Specifies a further group identifier to use for plugin lookup.
+    <pluginGroup>com.your.plugins</pluginGroup>
+    -->
+  </pluginGroups>
+
+  <!-- proxies
+   | This is a list of proxies which can be used on this machine to connect to the network.
+   | Unless otherwise specified (by system property or command-line switch), the first proxy
+   | specification in this list marked as active will be used.
+   |-->
+  <proxies>
+    <!-- proxy
+     | Specification for one proxy, to be used in connecting to the network.
+     |
+    <proxy>
+      <id>optional</id>
+      <active>true</active>
+      <protocol>http</protocol>
+      <username>proxyuser</username>
+      <password>proxypass</password>
+      <host>proxy.host.net</host>
+      <port>80</port>
+      <nonProxyHosts>local.net|some.host.com</nonProxyHosts>
+    </proxy>
+    -->
+  </proxies>
+
+  <!-- servers
+   | This is a list of authentication profiles, keyed by the server-id used within the system.
+   | Authentication profiles can be used whenever maven must make a connection to a remote server.
+   |-->
+	<servers>
+		<server>
+			<id>tboss-site-server</id>
+			<username>pamirs</username>
+			<password>pamirs</password>
+		</server>
+
+		<server>
+			<id>releases</id>
+			<username>admin</username>
+			<password>taobao123456789</password>
+		</server>
+		<server>
+			<id>snapshots</id>
+			<username>admin</username>
+			<password>taobao123456789</password>
+		</server>
+
+		<server>
+			<id>taocodeReleases</id>
+			<username>admin</username>
+			<password>admintaocode321</password>
+		</server>
+		<server>
+			<id>taocodeSnapshots</id>
+			<username>admin</username>
+			<password>admintaocode321</password>
+		</server>
+
+    <server>
+      <id>aixforce-releases</id>
+      <username>admin</username>
+      <password>aixforce123</password>
+    </server>
+    <server>
+      <id>aixforce-snapshots</id>
+      <username>admin</username>
+      <password>aixforce123</password>
+    </server>
+
+
+
+	 <server>
+      <id>bestpay-releases</id>
+      <username>huwenjie</username>
+      <password>huwenjie@123</password>
+    </server>
+    <server>
+      <id>bestpay-snapshots</id>
+      <username>huwenjie</username>
+      <password>huwenjie@123</password>
+    </server>
+	<server>
+		<id>thirdparty</id>
+		<username>huwenjie</username>
+		<password>huwenjie@123</password>
+	</server>
+
+	</servers>
+
+  <!-- mirrors
+   | This is a list of mirrors to be used in downloading artifacts from remote repositories.
+   |
+   | It works like this: a POM may declare a repository to use in resolving certain artifacts.
+   | However, this repository may have problems with heavy traffic at times, so people have mirrored
+   | it to several places.
+   |
+   | That repository definition will have a unique id, so we can create a mirror reference for that
+   | repository, to be used as an alternate download site. The mirror site will be the preferred
+   | server for that repository.
+   |-->
+  <mirrors>
+    <!-- mirror
+     | Specifies a repository mirror site to use instead of a given repository. The repository that
+     | this mirror serves has an ID that matches the mirrorOf element of this mirror. IDs are used
+     | for inheritance and direct lookup purposes, and must be unique across the set of mirrors.
+     |
+    <mirror>
+      <id>mirrorId</id>
+      <mirrorOf>repositoryId</mirrorOf>
+      <name>Human Readable Name for this Mirror.</name>
+      <url>http://my.repository.com/repo/path</url>
+    </mirror>
+     -->
+  </mirrors>
+
+	<profiles>
+		<profile>
+			<id>taobao</id>
+			<repositories>
+				<repository>
+					<id>m2</id>
+					<name>m2 mirror</name>
+					<layout>default</layout>
+					<url>http://repo1.maven.org/maven2</url>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+				</repository>
+				<repository>
+					<id>central</id>
+					<url>http://mvnrepo.taobao.ali.com/mvn/repository</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+				</repository>
+				<repository>
+					<id>snapshots</id>
+					<url>http://mvnrepo.taobao.ali.com/mvn/repository</url>
+					<releases>
+						<enabled>false</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+        </repository>
+				<repository>
+					<id>taocodeReleases</id>
+					<name>taocode nexus</name>
+					<url>http://mvnrepo.code.taobao.org/nexus/content/repositories/releases</url>
+				</repository>
+				<repository>
+					<id>taocodeSnapshots</id>
+					<name>taocode nexus</name>
+					<url>http://mvnrepo.code.taobao.org/nexus/content/repositories/snapshots</url>
+        </repository>
+				<repository>
+					<id>mvnsearch</id>
+					<name>Maven search repository</name>
+					<url>http://www.mvnsearch.org/maven2/</url>
+				</repository>
+        <!--
+				<repository>
+					<id>groovypprepo</id>
+					<name>Groovypp repository</name>
+					<url>http://groovypp.artifactoryonline.com/groovypp/libs-releases-local/</url>
+        </repository>
+        -->
+			</repositories>
+		</profile>
+    <profile>
+      <id>dev</id>
+      <repositories>
+        <!--
+        <repository>
+          <id>local-nexus</id>
+          <url>http://repo.aixforce.com/nexus/content/groups/public/</url>
+          <releases>
+            <enabled>true</enabled>
+          </releases>
+          <snapshots>
+            <enabled>true</enabled>
+          </snapshots>
+        </repository>
+        -->
+        <repository>
+          <id>bestpay</id>
+          <name>bestpay</name>
+          <!--<url>http://116.228.151.221:8085/nexus/content/groups/public/</url>-->
+          <url>http://mavenrepository.bestpay.com.cn/content/groups/public/</url>
+          <releases>
+             <enabled>true</enabled>
+          </releases>
+          <snapshots>
+             <enabled>true</enabled>
+         </snapshots>
+        </repository>
+      </repositories>
+    </profile>
+	<profile>
+		<id>sonar</id>
+		<activation>
+		<activeByDefault>true</activeByDefault>
+		</activation>
+		<properties>
+		<!-- EXAMPLE FOR MYSQL -->
+				<sonar.jdbc.url>jdbc:oracle:thin:@116.228.55.185:21521:TEST</sonar.jdbc.url>
+				<sonar.jdbc.driverClassName>oracle.jdbc.driver.OracleDriver</sonar.jdbc.driverClassName>
+				<sonar.jdbc.username>btupayprod</sonar.jdbc.username>
+				<sonar.jdbc.password>1234</sonar.jdbc.password>
+				<sonar.host.url>http://192.168.232.209:9099/</sonar.host.url>
+				</properties>
+	</profile>
+	</profiles>
+
+  <activeProfiles>
+    <activeProfile>dev</activeProfile>
+  </activeProfiles>
+
+</settings>
